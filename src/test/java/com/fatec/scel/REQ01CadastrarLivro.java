@@ -62,4 +62,18 @@ LivroRepository repository;
 	assertEquals(violations.size(), 1);
 	assertEquals("O titulo deve ser preenchido", violations.iterator().next().getMessage());
 	}
+	
+	@Test
+	public void CT04DeveDetectarAutorInvalido() {
+	validatorFactory = Validation.buildDefaultValidatorFactory();
+	validator = validatorFactory.getValidator();
+	// dado que o titulo do livro esta invalido
+	Livro livro = new Livro("3333", "Teste de Software", "");
+	// when:
+	Set<ConstraintViolation<Livro>> violations = validator.validate(livro);
+	// then:
+	assertEquals(violations.size(), 1);
+	assertEquals("Autor inválido", violations.iterator().next().getMessage());
+	}
 }
+
